@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XII TJKT 1 — Angkatan 2023–2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PARTICLE LAYER -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- YouTube Player — harus ada ukuran minimal agar API berfungsi -->
+<div style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;pointer-events:none" aria-hidden="true">
+  <div id="ytFrame"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nlogo">XII <span>TJKT</span> 1</div>
+  <ul class="nlinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#walikelas">Wali Kelas</a></li>
+    <li><a href="#perjalanan">Perjalanan</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#siswa">Siswa</a></li>
+    <li><a href="#prestasi">Prestasi</a></li>
+    <li><a href="#komentar">Pesan</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="musicBtn" id="musicNavBtn" onclick="toggleMusic()" title="Play/Pause musik">🎵</button>
+    <button class="adminBtn" onclick="openAdmin()">⚙ Admin</button>
+  </div>
+</nav>
+
+<!-- MUSIC BAR -->
+<div id="musicBar">
+  <div class="mb-info">
+    <div class="mb-disc" id="mbDisc">🎵</div>
+    <div>
+      <div class="mb-title" id="mbTitle">17</div>
+      <div class="mb-sub"   id="mbArtist">Tulus</div>
+    </div>
+  </div>
+  <button class="mb-btn" id="mbPlayBtn" onclick="toggleMusic()" title="Play/Pause">▶</button>
+  <input  class="mb-vol" type="range" min="0" max="1" step="0.05" value="0.4"
+          oninput="setVolume(this.value)" title="Volume">
+</div>
+
+<!-- Tombol musik fixed di pojok kanan bawah sebagai fallback yang jelas -->
+<button id="musicFab" onclick="toggleMusic()" title="Putar / Pause lagu 17 - Tulus"
+  style="position:fixed;bottom:5.5rem;right:1.5rem;z-index:299;
+         width:48px;height:48px;border-radius:50%;
+         background:linear-gradient(135deg,#7c6fff,#ff5f7e);
+         border:none;color:#fff;font-size:1.3rem;
+         box-shadow:0 4px 16px rgba(124,111,255,.45);
+         cursor:pointer;transition:transform .2s;display:flex;
+         align-items:center;justify-content:center;">
+  🎵
+</button>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <div class="hbadge">🎓 Angkatan 2023 – 2026</div>
+  <div class="hlogoWrap" id="heroLogoWrap">
+    <div class="hlogoPh">XII</div>
+  </div>
+  <h1 class="htitle">XII TJKT 1<br><span class="ac">The Legacy</span></h1>
+  <p class="hsub">Teknik Jaringan Komputer &amp; Telekomunikasi — tumbuh bersama, berjuang bersama, lulus bersama.</p>
+  <div class="hstats">
+    <div class="hst"><div class="num" id="cS">33</div><div class="lbl">Siswa</div></div>
+    <div class="hst"><div class="num">3</div><div class="lbl">Tahun</div></div>
+    <div class="hst"><div class="num" id="cK">500</div><div class="lbl">Kenangan</div></div>
+  </div>
+  <div class="scue"><span>SCROLL</span><div class="scln"></div></div>
+</section>
+
+<!-- ═══════════════ WALI KELAS ═══════════════ -->
+<section id="walikelas">
+  <div class="si">
+    <div class="slbl rv">— Wali Kelas</div>
+    <h2 class="stit rv">Guru Pembimbing</h2>
+    <p class="sdsc rv">Tiga sosok yang menemani perjalanan kami di setiap tingkatan kelas.</p>
+    <div class="wtabs rv" id="wTabs"></div>
+    <div id="wPanels"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PERJALANAN ═══════════════ -->
+<section id="perjalanan">
+  <div class="si">
+    <div class="slbl rv">— Perjalanan Kita</div>
+    <h2 class="stit rv">3 Tahun Bersama</h2>
+    <p class="sdsc rv">Dari anak baru yang canggung hingga generasi siap menghadapi dunia.</p>
+    <div class="tl">
+
+      <div class="tli rv">
+        <div class="tldot"></div>
+        <div class="tlyear">📅 2023 — Kelas X</div>
+        <div class="tlcard">
+          <h3>Awal Perjalanan 🚀</h3>
+          <p>MPLS, kenalan satu sama lain, mulai belajar dasar-dasar jaringan komputer, kabel UTP, dan Linux. Banyak yang masih bingung bedain RJ-45 sama power cable 😄</p>
+          <div class="tlhl">
+            <span class="hl">MPLS 2023</span><span class="hl">Dasar Jaringan</span>
+            <span class="hl">Kabel UTP</span><span class="hl">Linux Dasar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tli rv" style="animation-delay:.1s">
+        <div class="tldot"></div>
+        <div class="tlyear">📅 Semester 2 – 2024</div>
+        <div class="tlcard">
+          <h3>Mulai Ngerti! 😎</h3>
+          <p>Konfigurasi router, switch Cisco, subnetting yang bikin pusing tapi puas kalau berhasil. Bonding antar teman makin kuat. Mulai ada "jagoan lab" di kelas.</p>
+          <div class="tlhl">
+            <span class="hl">Cisco IOS</span><span class="hl">Subnetting</span><span class="hl">Praktek Lab</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tli c11 rv" style="animation-delay:.2s">
+        <div class="tldot"></div>
+        <div class="tlyear">📅 2024 — Kelas XI</div>
+        <div class="tlcard">
+          <h3>Level Up! 🔥</h3>
+          <p>Materi server, wireless, keamanan jaringan, hingga pemrograman web. PKL jadi momen paling ditunggu-tunggu sekaligus bikin deg-degan semua orang.</p>
+          <div class="tlhl">
+            <span class="hl">Server &amp; DNS</span><span class="hl">Wireless</span>
+            <span class="hl">Network Security</span><span class="hl">Web Dev</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tli c11 rv" style="animation-delay:.3s">
+        <div class="tldot"></div>
+        <div class="tlyear">📅 2025 — PKL / Magang</div>
+        <div class="tlcard">
+          <h3>Terjun ke Dunia Nyata 💼</h3>
+          <p>PKL di berbagai perusahaan: ISP, kantor pemerintahan, perusahaan IT. Ilmu baru yang tidak ada di buku tapi langsung terasa manfaatnya di lapangan!</p>
+          <div class="tlhl">
+            <span class="hl">Praktik Industri</span><span class="hl">Real Networking</span><span class="hl">Pengalaman Kerja</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tli c12 rv" style="animation-delay:.4s">
+        <div class="tldot"></div>
+        <div class="tlyear">📅 2025–2026 — Kelas XII</div>
+        <div class="tlcard">
+          <h3>Tahun Terakhir &amp; Terbaik 💚</h3>
+          <p>UKK, project akhir, dan momen paling berkesan bersama. Tawa, tangis, perjuangan — semua jadi kenangan yang tak terlupakan seumur hidup.</p>
+          <div class="tlhl">
+            <span class="hl">Uji Kompetensi</span><span class="hl">Project Akhir</span>
+            <span class="hl">Kelulusan 6 Mei 2026</span><span class="hl">🎓 Wisuda</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GALERI ═══════════════ -->
+<section id="galeri">
+  <div class="si">
+    <div class="slbl rv">— Galeri</div>
+    <h2 class="stit rv">Kenangan Visual</h2>
+    <p class="sdsc rv">Foto &amp; video momen-momen berharga selama 3 tahun bersama.</p>
+    <div class="gtabs rv" id="gTabs">
+      <button class="gtab on" onclick="fG('all',this)">Semua</button>
+      <button class="gtab" onclick="fG('x',this)">Kelas X</button>
+      <button class="gtab" onclick="fG('xi',this)">Kelas XI</button>
+      <button class="gtab" onclick="fG('xii',this)">Kelas XII</button>
+      <button class="gtab" onclick="fG('pkl',this)">PKL</button>
+      <button class="gtab" onclick="fG('acara',this)">Acara</button>
+      <button class="gtab" onclick="fG('video',this)">🎬 Video</button>
+    </div>
+    <div class="ggrid" id="galGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SISWA ═══════════════ -->
+<section id="siswa">
+  <div class="si">
+    <div class="slbl rv">— Anggota Kelas</div>
+    <h2 class="stit rv">Siswa XII TJKT 1</h2>
+    <p class="sdsc rv">33 jiwa, satu keluarga besar yang saling menguatkan.</p>
+    <div class="sgrid" id="sisGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRESTASI ═══════════════ -->
+<section id="prestasi">
+  <div class="si">
+    <div class="slbl rv">— Bangga Bersama</div>
+    <h2 class="stit rv">Prestasi Kelas</h2>
+    <p class="sdsc rv">Pencapaian yang kami raih selama 3 tahun bersama.</p>
+    <div class="pgrid" id="presGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SINCE LULUS ═══════════════ -->
+<section id="sincelulus">
+  <div class="si">
+    <div class="slwrap rv">
+      <h2 id="sl-label">🎓 Sudah lulus selama…</h2>
+      <p class="sub">Dihitung sejak tanggal kelulusan resmi</p>
+      <div class="lulus-date">📅 6 Mei 2026</div>
+      <div class="slgrid">
+        <div class="slbox" id="slBoxYear" style="display:none">
+          <span class="slnum" id="sl-yr">0</span>
+          <div class="sllbl">TAHUN</div>
+        </div>
+        <div class="slbox">
+          <span class="slnum" id="sl-d">00</span>
+          <div class="sllbl">HARI</div>
+        </div>
+        <div class="slbox">
+          <span class="slnum" id="sl-h">00</span>
+          <div class="sllbl">JAM</div>
+        </div>
+        <div class="slbox">
+          <span class="slnum" id="sl-m">00</span>
+          <div class="sllbl">MENIT</div>
+        </div>
+        <div class="slbox">
+          <span class="slnum" id="sl-s">00</span>
+          <div class="sllbl">DETIK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ KOMENTAR ═══════════════ -->
+<section id="komentar">
+  <div class="si">
+    <div class="slbl rv">— Dari Hati</div>
+    <h2 class="stit rv">Pesan &amp; Kesan</h2>
+    <p class="sdsc rv">Tinggalkan pesan untuk teman-teman dan kenangan kita bersama!</p>
+
+    <div class="kform rv">
+      <h3>✍️ Kirim Pesanmu</h3>
+      <div class="krow">
+        <div class="kf">
+          <label>NAMA LENGKAP</label>
+          <input type="text" id="kNama" placeholder="Nama kamu...">
+        </div>
+        <div class="kf">
+          <label>KAMU SEBAGAI</label>
+          <select id="kRole">
+            <option>Siswa XII TJKT 1</option>
+            <option>Alumni</option>
+            <option>Wali Kelas</option>
+            <option>Guru</option>
+            <option>Orang Tua</option>
+            <option>Teman</option>
+          </select>
+        </div>
+      </div>
+      <div class="kf">
+        <label>PESAN / KESAN</label>
+        <textarea id="kPesan" placeholder="Tulis pesan, kesan, atau kenangan indah bersama XII TJKT 1..."></textarea>
+      </div>
+      <button class="ksend" id="kBtn" onclick="kirimPesan()">Kirim Pesan 💌</button>
+      <div class="ksts" id="kSts"></div>
+    </div>
+
+    <div class="kgrid" id="kGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted)">⏳ Memuat pesan...</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">XII <span>TJKT 1</span></div>
+  <p id="fSchool">SMK — Angkatan 2023–2026</p>
+  <p>Dibuat dengan <span class="fhrt">♥</span> oleh keluarga besar XII TJKT 1</p>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     ADMIN PANEL MODAL
+     ═══════════════════════════════════════ -->
+<div id="adminOv">
+  <div class="amod">
+    <button class="aclose" onclick="closeAdmin()">✕</button>
+    <div class="atit">⚙ Admin Panel</div>
+    <div class="asub">Kelola semua konten website XII TJKT 1</div>
+
+    <!-- Login Gate -->
+    <div id="aLogin">
+      <div class="af" style="max-width:280px">
+        <label>PASSWORD ADMIN</label>
+        <input type="password" id="aPw" placeholder="Password..." onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="ab pri" style="margin-top:1rem" onclick="doLogin()">Masuk →</button>
+      <div style="font-size:.74rem;color:var(--muted);margin-top:.5rem">
+        Default: <code style="color:var(--acc)">tjkt1admin</code>
+      </div>
+      <div id="loginErr" class="err" style="margin-top:.4rem"></div>
+    </div>
+
+    <!-- Admin Content -->
+    <div id="aContent" style="display:none">
+      <div class="atabs">
+        <button class="atab on"  onclick="aTab('logo',this)">🖼 Logo</button>
+        <button class="atab"     onclick="aTab('wali',this)">👩‍🏫 Wali Kelas</button>
+        <button class="atab"     onclick="aTab('siswa',this)">👥 Siswa</button>
+        <button class="atab"     onclick="aTab('galeri',this)">📸 Galeri</button>
+        <button class="atab"     onclick="aTab('cloudinary',this)">☁ Cloudinary</button>
+        <button class="atab"     onclick="aTab('firebase',this)">🔥 Firebase</button>
+        <button class="atab"     onclick="aTab('prestasi',this)">🏆 Prestasi</button>
+        <button class="atab"     onclick="aTab('pesan',this)">💬 Pesan</button>
+        <button class="atab"     onclick="aTab('pw',this)">🔒 Password</button>
+      </div>
+
+      <!-- TAB: LOGO & INFO -->
+      <div class="apanel on" id="pLogo">
+        <div class="asec">
+          <h3>Logo Kelas</h3>
+          <div class="lprevWrap">
+            <div class="lprev" id="lprev"><span>XII</span></div>
+            <div>
+              <p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">Upload logo / foto kelas (JPG / PNG, maks 2MB)</p>
+              <label style="cursor:pointer">
+                <span class="ab pri" style="display:inline-block">Pilih Gambar</span>
+                <input type="file" accept="image/*" style="display:none" onchange="uploadLogo(this)">
+              </label>
+              <button class="ab dan" style="margin-left:.5rem" onclick="removeLogo()">Hapus</button>
+            </div>
+          </div>
+        </div>
+        <div class="asec">
+          <h3>Informasi Kelas</h3>
+          <div class="arow">
+            <div class="af">
+              <label>NAMA SEKOLAH</label>
+              <input type="text" id="aSchool" placeholder="SMK Negeri 1 ...">
+            </div>
+          </div>
+          <button class="ab pri" onclick="saveInfo()">Simpan</button>
+          <div id="infoSts" style="margin-top:.5rem"></div>
+        </div>
+      </div>
+
+      <!-- TAB: WALI KELAS -->
+      <div class="apanel" id="pWali">
+        <div id="waliAdmList"></div>
+      </div>
+
+      <!-- TAB: SISWA -->
+      <div class="apanel" id="pSiswa">
+        <div class="asec">
+          <h3>Tambah Siswa</h3>
+          <div class="arow">
+            <div class="af"><label>NO. ABSEN</label><input type="number" id="sNo" placeholder="01" min="1" max="99"></div>
+            <div class="af"><label>NAMA LENGKAP</label><input type="text" id="sNama" placeholder="Nama siswa..."></div>
+          </div>
+          <div class="arow">
+            <div class="af"><label>JABATAN (opsional)</label><input type="text" id="sRole" placeholder="Ketua Kelas, Sekretaris..."></div>
+            <div class="af">
+              <label>FOTO SISWA</label>
+              <label style="cursor:pointer">
+                <span class="ab pri sm" style="display:inline-block">Upload Foto</span>
+                <input type="file" accept="image/*" id="sFoto" style="display:none" onchange="prevSFoto(this)">
+              </label>
+              <span id="sFotoN" style="font-size:.72rem;color:var(--muted);margin-left:.5rem;vertical-align:middle"></span>
+            </div>
+          </div>
+          <button class="ab pri" onclick="addSiswa()">+ Tambah Siswa</button>
+          <div id="sSts" style="margin-top:.5rem"></div>
+        </div>
+        <div class="asec">
+          <h3>Daftar Siswa (<span id="sCnt">0</span> orang)</h3>
+          <div class="saList" id="saList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: GALERI -->
+      <div class="apanel" id="pGaleri">
+        <div class="asec">
+          <h3>Upload Foto / Video</h3>
+          <div class="arow">
+            <div class="af"><label>KETERANGAN</label><input type="text" id="gLbl" placeholder="Judul foto atau video..."></div>
+            <div class="af">
+              <label>KATEGORI</label>
+              <select id="gTag">
+                <option value="x">Kelas X (2023)</option>
+                <option value="xi">Kelas XI (2024)</option>
+                <option value="xii">Kelas XII (2025-2026)</option>
+                <option value="pkl">PKL</option>
+                <option value="acara">Acara / Event</option>
+              </select>
+            </div>
+          </div>
+          <label style="cursor:pointer;display:block">
+            <div class="upa">
+              <div class="ui">📤</div>
+              <p>Klik untuk upload foto atau video<br><small>JPG, PNG, MP4, MOV — maks 10MB per file</small></p>
+              <input type="file" accept="image/*,video/*" multiple id="gUp" onchange="uploadGaleri(this)">
+            </div>
+          </label>
+          <div id="gSts" style="margin-top:.75rem"></div>
+        </div>
+        <div class="asec">
+          <h3>Konten Tersimpan (<span id="gCnt">0</span> item)</h3>
+          <div class="gAgrid" id="gAList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: CLOUDINARY -->
+      <div class="apanel" id="pCloudinary">
+        <div class="asec">
+          <h3>☁ Setup Cloudinary (Untuk Upload Foto & Video Besar)</h3>
+          <div style="background:rgba(61,224,160,.08);border:1px solid rgba(61,224,160,.25);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;font-size:.85rem;line-height:1.8;color:var(--muted)">
+            <strong style="color:var(--acc3)">📋 Cara mendapatkan Cloud Name & Upload Preset:</strong><br>
+            1. Daftar gratis di <a href="https://cloudinary.com" target="_blank" style="color:var(--acc)">cloudinary.com</a><br>
+            2. Setelah login, lihat <strong style="color:var(--text)">Cloud Name</strong> di dashboard (pojok kiri atas)<br>
+            3. Buka <strong style="color:var(--text)">Settings → Upload → Upload presets</strong><br>
+            4. Klik <strong style="color:var(--text)">"Add upload preset"</strong>, set <strong style="color:var(--text)">Signing Mode = Unsigned</strong>, lalu simpan<br>
+            5. Salin nama preset tersebut dan tempel di bawah<br>
+            <br>
+            <strong style="color:var(--gold)">✨ Gratis 25GB storage — cukup untuk ratusan foto & video!</strong>
+          </div>
+          <div class="arow">
+            <div class="af">
+              <label>CLOUD NAME</label>
+              <input type="text" id="cldCloud" placeholder="contoh: dxyz123abc">
+            </div>
+            <div class="af">
+              <label>UPLOAD PRESET (Unsigned)</label>
+              <input type="text" id="cldPreset" placeholder="contoh: tjkt1_preset">
+            </div>
+          </div>
+          <button class="ab pri" onclick="saveCldConfig()">Simpan Config Cloudinary</button>
+          <div id="cldSts" style="margin-top:.5rem"></div>
+        </div>
+        <div class="asec">
+          <h3>📌 Panduan Upload di Tab Galeri</h3>
+          <div style="font-size:.83rem;color:var(--muted);line-height:1.9">
+            • Setelah config tersimpan, buka tab <strong style="color:var(--text)">📸 Galeri</strong><br>
+            • Pilih foto / video sebesar apapun (tidak ada limit dari sisi kita)<br>
+            • Cloudinary mendukung: JPG, PNG, GIF, WebP, MP4, MOV, AVI, dll<br>
+            • File akan diupload langsung ke cloud dan URL-nya tersimpan<br>
+            • Foto & video bisa dilihat semua orang yang membuka website 🎉
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: FIREBASE -->
+      <div class="apanel" id="pFirebase">
+        <div class="asec">
+          <h3>🔥 Setup Firebase Realtime Database</h3>
+
+          <!-- Status badge -->
+          <div id="fbStatusBadge" style="margin-bottom:1rem"></div>
+
+          <!-- Panduan -->
+          <div style="background:rgba(255,95,126,.07);border:1px solid rgba(255,95,126,.2);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;font-size:.83rem;line-height:1.9;color:var(--muted)">
+            <strong style="color:var(--acc2)">📋 Cara mendapatkan Firebase Config (ikuti urutan ini):</strong><br>
+            1. Buka <a href="https://console.firebase.google.com" target="_blank" style="color:var(--acc)">console.firebase.google.com</a> → klik <strong style="color:var(--text)">Add project</strong><br>
+            2. Beri nama project (misal: <code style="color:var(--acc3)">xii-tjkt1-2026</code>) → Continue → Create project<br>
+            3. Di sidebar kiri klik <strong style="color:var(--text)">Build → Realtime Database</strong> → <strong style="color:var(--text)">Create database</strong><br>
+            4. Pilih region <strong style="color:var(--text)">asia-southeast1 (Singapore)</strong> → Next<br>
+            5. Pilih <strong style="color:var(--text)">"Start in test mode"</strong> → Enable<br>
+            6. Salin URL database (contoh: <code style="color:var(--acc3)">https://xii-tjkt1-default-rtdb.asia-southeast1.firebasedatabase.app</code>)<br>
+            7. Klik ikon <strong style="color:var(--text)">⚙ gear → Project settings</strong><br>
+            8. Scroll ke bawah ke <strong style="color:var(--text)">"Your apps"</strong> → klik icon <strong style="color:var(--text)">&lt;/&gt;</strong> (Web)<br>
+            9. Register app (isi nickname, tidak perlu hosting) → salin seluruh <code style="color:var(--acc3)">firebaseConfig</code><br>
+            10. Isi form di bawah → Simpan → selesai! 🎉<br>
+            <br>
+            <strong style="color:var(--gold)">✨ Gratis selamanya untuk proyek kecil — pesan semua orang tersimpan realtime!</strong>
+          </div>
+
+          <!-- Form config -->
+          <div class="arow">
+            <div class="af">
+              <label>API KEY <span style="color:var(--acc2)">*</span></label>
+              <input type="text" id="fbApiKey" placeholder="AIzaSyXXXXXXXXXXXXXXXXXXXXXXX">
+            </div>
+            <div class="af">
+              <label>AUTH DOMAIN</label>
+              <input type="text" id="fbAuthDomain" placeholder="xii-tjkt1.firebaseapp.com">
+            </div>
+          </div>
+          <div class="af" style="margin-bottom:1rem">
+            <label>DATABASE URL <span style="color:var(--acc2)">*</span></label>
+            <input type="text" id="fbDbUrl" placeholder="https://xii-tjkt1-default-rtdb.asia-southeast1.firebasedatabase.app">
+          </div>
+          <div class="arow">
+            <div class="af">
+              <label>PROJECT ID</label>
+              <input type="text" id="fbProjectId" placeholder="xii-tjkt1-2026">
+            </div>
+            <div class="af">
+              <label>APP ID</label>
+              <input type="text" id="fbAppId" placeholder="1:123456789:web:abcdef">
+            </div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-top:.25rem">
+            <button class="ab pri" onclick="saveFbConfigAdmin()">💾 Simpan &amp; Hubungkan</button>
+            <button class="ab" style="background:var(--card2);border:1px solid var(--border);color:var(--muted)" onclick="testFbKoneksi()">🔍 Test Koneksi</button>
+          </div>
+          <div id="fbSts" style="margin-top:.75rem"></div>
+        </div>
+
+        <div class="asec">
+          <h3>ℹ️ Cara Baca firebaseConfig</h3>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);line-height:1.9">
+            const firebaseConfig = {<br>
+            &nbsp;&nbsp;<span style="color:var(--acc)">apiKey</span>: <span style="color:var(--acc3)">"AIzaSyXXXXXXXX"</span>, <span style="color:#555">← masuk ke API KEY</span><br>
+            &nbsp;&nbsp;<span style="color:var(--acc)">authDomain</span>: <span style="color:var(--acc3)">"xxx.firebaseapp.com"</span>, <span style="color:#555">← AUTH DOMAIN</span><br>
+            &nbsp;&nbsp;<span style="color:var(--acc)">databaseURL</span>: <span style="color:var(--acc3)">"https://xxx.firebasedatabase.app"</span>, <span style="color:#555">← DATABASE URL</span><br>
+            &nbsp;&nbsp;<span style="color:var(--acc)">projectId</span>: <span style="color:var(--acc3)">"xxx"</span>, <span style="color:#555">← PROJECT ID</span><br>
+            &nbsp;&nbsp;<span style="color:var(--acc)">appId</span>: <span style="color:var(--acc3)">"1:xxx:web:xxx"</span> <span style="color:#555">← APP ID</span><br>
+            };
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PRESTASI -->
+      <div class="apanel" id="pPrestasi">
+        <div class="asec">
+          <h3>Tambah Prestasi</h3>
+          <div class="arow">
+            <div class="af"><label>EMOJI IKON</label><input type="text" id="pIco" placeholder="🏆" maxlength="4" style="font-size:1.4rem;width:80px"></div>
+            <div class="af"><label>JUDUL PRESTASI</label><input type="text" id="pJudul" placeholder="Juara 1 LKS Jaringan..."></div>
+          </div>
+          <div class="af" style="margin-bottom:1rem">
+            <label>DESKRIPSI</label>
+            <textarea id="pDesc" placeholder="Keterangan prestasi..."></textarea>
+          </div>
+          <div class="arow">
+            <div class="af">
+              <label>MEDALI</label>
+              <select id="pMedal">
+                <option value="mg">🥇 Emas</option>
+                <option value="ms">🥈 Perak</option>
+                <option value="mb">🥉 Perunggu</option>
+              </select>
+            </div>
+            <div class="af"><label>TAHUN</label><input type="text" id="pTahun" placeholder="2025"></div>
+          </div>
+          <button class="ab pri" onclick="addPrestasi()">+ Tambah Prestasi</button>
+          <div id="presSts" style="margin-top:.5rem"></div>
+        </div>
+        <div class="asec">
+          <h3>Daftar Prestasi (<span id="presCnt">0</span> item)</h3>
+          <div class="presAdmList" id="presAdmList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: PESAN -->
+      <div class="apanel" id="pPesan">
+        <div class="asec">
+          <h3>Pesan Masuk</h3>
+          <div class="msgList" id="msgAdmList">
+            <div style="color:var(--muted);font-size:.85rem">Memuat...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PASSWORD -->
+      <div class="apanel" id="pPw">
+        <div class="asec">
+          <h3>Ganti Password Admin</h3>
+          <div class="af" style="max-width:280px;margin-bottom:.75rem"><label>PASSWORD LAMA</label><input type="password" id="pwL" placeholder="..."></div>
+          <div class="af" style="max-width:280px;margin-bottom:.75rem"><label>PASSWORD BARU</label><input type="password" id="pwB" placeholder="Min 6 karakter..."></div>
+          <div class="af" style="max-width:280px;margin-bottom:.75rem"><label>KONFIRMASI</label><input type="password" id="pwK" placeholder="..."></div>
+          <button class="ab pri" onclick="gantiPw()">Ganti Password</button>
+          <div id="pwSts" style="margin-top:.5rem"></div>
+        </div>
+      </div>
+
+    </div><!-- end #aContent -->
+  </div><!-- end .amod -->
+</div><!-- end #adminOv -->
+
+<!-- SCRIPTS — urutan SANGAT penting, jangan diubah! -->
+<script src="data.js"></script>    <!-- 1. Data & konstanta default -->
+<script src="config.js"></script>  <!-- 2. Config kamu (Firebase, Cloudinary, Siswa, dll) -->
+<script src="firebase.js"></script><!-- 3. Firebase module -->
+<script src="app.js"></script>     <!-- 4. Logika utama -->
+<script src="admin.js"></script>   <!-- 5. Admin panel -->
+<script>
+  window.addEventListener('load', init);
+</script>
+</body>
+</html>
